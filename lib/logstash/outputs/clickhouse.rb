@@ -98,7 +98,7 @@ class LogStash::Outputs::ClickHouse < LogStash::Outputs::Base
     lambda {
       hosts.flat_map do |host|
         uri = URI(host)
-        creds = "#{uri.user}:#{uri.password}" if uri.user && uri.password
+        creds = "#{uri.user}:#{uri.password}@" if uri.user && uri.password
 
         if ip_re !~ uri.host
           resolver.get_addresses(uri.host).map { |ip|
