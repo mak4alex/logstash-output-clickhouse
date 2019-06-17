@@ -90,26 +90,24 @@ class LogStash::Outputs::ClickHouse < LogStash::Outputs::Base
     print_plugin_info()
   end # def register
 
-  private
 
+  private
   def parse_http_hosts(hosts, resolver)
     ip_re = /^[\d]+\.[\d]+\.[\d]+\.[\d]+$/
 
     lambda {
-      hosts.flat_map { |h|
-        scheme = URI(h).scheme
-        host = URI(h).host
-        port = URI(h).port
-        path = URI(h).path
+      hosts.flat_map do |host|
+        uri = URI(host)
+        creds = "#{uri.user}:#{uri.password}@" if uri.user && uri.password
 
-        if ip_re !~ host
-          resolver.get_addresses(host).map { |ip|
-            "#{scheme}://#{ip}:#{port}#{path}"
+        if ip_re !~ uri.host
+          resolver.get_addresses(uri.host).map { |ip|
+            "#{uri.scheme}://#{creds}#{ip}:#{uri.port}#{uri.path}"
           }
         else
-          [h]
+          [host]
         end
-      }
+      end
     }
   end
 
