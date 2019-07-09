@@ -38,6 +38,6 @@ The easiest way to use this plugin is by installing it through rubygems like any
 
 To build the gem yourself, use `gem build logstash-output-clickhouse.gemspec` in the root of this repository. Alternatively, you can download a built version of the gem from the `dist` branch of this repository. 
 
-To install, run the following command, assuming the gem is in the local directory: `$LOGSTASH_HOME/bin/plugin install logstash-output-clickhouse-X.Y.Z.gem`
+To install, run the following command, assuming the gem is in the local directory: `$LOGSTASH_HOME/bin/logstash-plugin install logstash-output-clickhouse-X.Y.Z.gem`
 
 P.S. Tested on Logstash 7.1.1
